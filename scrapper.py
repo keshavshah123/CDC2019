@@ -17,8 +17,8 @@ for i in indexArr:
 
 indexArr.sort() #sorted all 49607 counties
 counties.sort() #sorted only 100 counties
-total_votes = [0] * 100 #total republican vote
-grandTotal = [0] * 100 #total vote
+total_votes = []
+grandTotal = []
 a = 0 #repub iterator
 b = 0 #total iterator
 
@@ -33,8 +33,10 @@ tmp3 = str(counties[0])
 for x in range(49607):
     if re.search("NC HOUSE", str(df.iloc[x,4])):
         temp = str(indexArr[x])
+        
         if tmp3 is temp: #current county
             grandTotal[b] += int(df.iloc[x,12])
+            
         if tmp3 is not temp: #next county
             e.update({counties[b] : grandTotal[b]}) #final update
             b = b + 1
@@ -43,6 +45,7 @@ for x in range(49607):
 
         if re.search("REP", str(df.iloc[x,6])): #repeat for rep setion
             temp = str(indexArr[x])
+            
             if tmp2 is temp:
                 total_votes[a] += int(df.iloc[x,12])
             else:
