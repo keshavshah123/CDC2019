@@ -17,8 +17,8 @@ for i in indexArr:
 
 indexArr.sort() #sorted all 49607 counties
 counties.sort() #sorted only 100 counties
-total_votes = []
-grandTotal = []
+total_votes = [0]*100
+grandTotal = [0]*100
 a = 0 #repub iterator
 b = 0 #total iterator
 
