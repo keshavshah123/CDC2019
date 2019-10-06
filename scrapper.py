@@ -3,7 +3,10 @@ import numpy as np
 import re
 import csv
 
-df = pd.read_csv('https://query.data.world/s/xxuvyisnx5y3saqqkd3gdgass5v6od', index_col = 0)
+df = pd.read_csv('results_pct_20180508.csv', index_col = 0)
+df.sort_values(by=['contest_name'], inplace = True)
+df.sort_values(by=['county'], inplace = True)
+print(df.iloc[1])
 
 index = df.index
 indexArr = [index[0]]
@@ -33,24 +36,36 @@ tmp3 = str(counties[0])
 for x in range(49607):
     if re.search("NC HOUSE", str(df.iloc[x,4])):
         temp = str(indexArr[x])
-        
-        if tmp3 is temp: #current county
+        if tmp3 == temp: #current county
+            print(int(df.iloc[x,12]))
+            print(str(df.iloc[x,4]))
+            print("total")
             grandTotal[b] += int(df.iloc[x,12])
-        else: #next county
+        
+        if tmp3 != temp: #next county
             e.update({counties[b] : grandTotal[b]}) #final update
             b = b + 1
             tmp3 = str(counties[b])
+            print(int(df.iloc[x,12]))
+            print(str(df.iloc[x,4]))
+            print("total")
             grandTotal[b] += int(df.iloc[x,12])
 
         if re.search("REP", str(df.iloc[x,6])): #repeat for rep setion
-            temp = str(indexArr[x])
+            temp2 = str(indexArr[x])
             
-            if tmp2 is temp:
+            if tmp2 == temp2:
+                print(int(df.iloc[x,12]))
+                print(str(df.iloc[x,4]))
+                print("repub")
                 total_votes[a] += int(df.iloc[x,12])
             else:
                 d.update({counties[a] : total_votes[a]})
                 a = a + 1
                 tmp2 = str(counties[a])
+                print(int(df.iloc[x,12]))
+                print(str(df.iloc[x,4]))
+                print("repub")
                 total_votes[a] += int(df.iloc[x,12])
 
 
