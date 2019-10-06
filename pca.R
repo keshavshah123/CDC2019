@@ -53,16 +53,18 @@ rownames(district_props) <- dlabs
 
 # PCA & get proportions of variance
 # Counties
+ctotal <- sum(counties[,1])/sum(counties[,2])
 counties.diffs <- matrix(0, length(county_props), length(county_props))
 for (i in 1:length(county_props)) {
   for (j in 1:length(county_props)) {
     if (i != j) {
-      counties.diffs[i,j] <- abs(county_props[i] - county_props[j])/county_props[i]
+      counties.diffs[i,j] <- abs(county_props[i] - county_props[j])/ctotal
     }
   }
 }
 rownames(counties.diffs) <- clabs
 # Districts
+dtotal <- sum(districts[,1])/sum(districts[,2])
 districts.diffs <- matrix(0, length(district_props), length(district_props))
 for (i in 1:length(district_props)) {
   for (j in 1:length(district_props)) {
@@ -83,7 +85,7 @@ dvar <- lapply( districts.pca$sdev, function(x) {get_proportion(x,dim(districts.
 #top_pcs <- min(length(cvar), length(dvar))
 top_pcs <- 5
 
-plot(1:top_pcs, cvar[1:top_pcs], type = 'l', xlab = 'Principal component', ylab = 'Proportion of variance')
+plot(1:top_pcs, cvar[1:top_pcs], type = 'l', xlab = 'Principal coefficient', ylab = 'Proportion of variance')
 lines(1:top_pcs, dvar[1:top_pcs], col = 'blue')
 legend('topright', legend = c('Counties', 'Districts'), col = c('black', 'blue'), lty = 1)
 
