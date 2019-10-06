@@ -83,7 +83,7 @@ dvar <- lapply( districts.pca$sdev, function(x) {get_proportion(x,dim(districts.
 #top_pcs <- min(length(cvar), length(dvar))
 top_pcs <- 5
 
-plot(1:top_pcs, cvar[1:top_pcs], type = 'l', xlab = 'Principal coefficient', ylab = 'Proportion of variance')
+plot(1:top_pcs, cvar[1:top_pcs], type = 'l', xlab = 'Principal component', ylab = 'Proportion of variance')
 lines(1:top_pcs, dvar[1:top_pcs], col = 'blue')
 legend('topright', legend = c('Counties', 'Districts'), col = c('black', 'blue'), lty = 1)
 
