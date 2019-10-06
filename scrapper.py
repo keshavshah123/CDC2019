@@ -15,31 +15,33 @@ for i in indexArr:
     if i not in counties:
         counties.append(i)
 
-indexArr.sort()
-counties.sort()
-total_votes = [0] * 100
-grandTotal = [0] * 100
-a = 0
-b = 0
+indexArr.sort() #sorted all 49607 counties
+counties.sort() #sorted only 100 counties
+total_votes = [0] * 100 #total republican vote
+grandTotal = [0] * 100 #total vote
+a = 0 #repub iterator
+b = 0 #total iterator
 
 d = {}
 d = dict()
+e = {}
 e = dict()
 
+#intial county (ALAMANCE)
 tmp2 = str(counties[0])
 tmp3 = str(counties[0])
 for x in range(49607):
     if re.search("NC HOUSE", str(df.iloc[x,4])):
         temp = str(indexArr[x])
-        if tmp3 is temp:
+        if tmp3 is temp: #current county
             grandTotal[b] += int(df.iloc[x,12])
-        if tmp3 is not temp:
-            e.update({counties[b] : grandTotal[b]})
+        if tmp3 is not temp: #next county
+            e.update({counties[b] : grandTotal[b]}) #final update
             b = b + 1
             tmp3 = str(counties[b])
-
             grandTotal[b] += int(df.iloc[x,12])
-        if re.search("REP", str(df.iloc[x,6])):
+
+        if re.search("REP", str(df.iloc[x,6])): #repeat for rep setion
             temp = str(indexArr[x])
             if tmp2 is temp:
                 total_votes[a] += int(df.iloc[x,12])
@@ -53,16 +55,10 @@ for x in range(49607):
 
 
 
-csv_columns = ['County', 'Republican total votes']
-csv_file = "output.csv"
-# try:
 with open('output.csv', 'w') as csvfile:
     writer = csv.DictWriter(csvfile, d.keys())
     writer.writeheader()
-    #for data in d:
     writer.writerow(d)
     writer.writerow(e)
-# except IOError:
-#     print("I/O error")
 
 csvfile.close()
