@@ -36,8 +36,7 @@ for x in range(49607):
         
         if tmp3 is temp: #current county
             grandTotal[b] += int(df.iloc[x,12])
-            
-        if tmp3 is not temp: #next county
+        else: #next county
             e.update({counties[b] : grandTotal[b]}) #final update
             b = b + 1
             tmp3 = str(counties[b])
@@ -52,7 +51,6 @@ for x in range(49607):
                 d.update({counties[a] : total_votes[a]})
                 a = a + 1
                 tmp2 = str(counties[a])
-
                 total_votes[a] += int(df.iloc[x,12])
 
 
